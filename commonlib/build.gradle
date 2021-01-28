@@ -1,0 +1,86 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        dataBinding = true
+    }
+}
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    testImplementation 'org.robolectric:robolectric:4.4'
+
+
+    //rx android
+    api "io.reactivex.rxjava2:rxandroid:2.1.0"
+    api "io.reactivex.rxjava2:rxjava:2.2.2"
+    //retrofit
+    api "com.squareup.retrofit2:retrofit:2.3.0"
+    api "com.squareup.retrofit2:converter-gson:2.3.0"
+    api "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    api "com.squareup.okhttp3:logging-interceptor:3.10.0"
+    api "com.google.code.gson:gson:2.8.5"
+    api 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    //image
+    api "com.github.bumptech.glide:glide:4.8.0"
+    api "jp.wasabeef:glide-transformations:2.0.1"
+    //room (local)
+    api 'android.arch.persistence.room:runtime:1.1.1'
+    api 'android.arch.persistence.room:rxjava2:1.1.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
+    //facebook出品，可在Chrome中查看数据库
+    api 'com.facebook.stetho:stetho:1.5.0'
+    //di
+    api "org.koin:koin-android-viewmodel:2.2.2"
+
+    //ViewModel
+    api "android.arch.lifecycle:extensions:1.1.1"
+    api "android.arch.lifecycle:viewmodel:1.1.1"
+    kapt "android.arch.lifecycle:compiler:1.1.1"
+
+    //qmui
+    api 'com.qmuiteam:qmui:2.0.0-alpha10'
+    api "com.qmuiteam:arch:2.0.0-alpha10"
+    kapt "com.qmuiteam:arch-compiler:2.0.0-alpha10" // use annotationProcessor if java
+
+    //ARouter
+    api 'com.alibaba:arouter-api:1.2.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+}

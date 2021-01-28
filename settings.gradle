@@ -1,0 +1,6 @@
+include ':mine_module'
+include ':main_module'
+include ':login_module'
+include ':commonlib'
+include ':app'
+rootProject.name = "Mvvm"
