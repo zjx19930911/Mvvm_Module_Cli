@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mvvm">
+    package="com.iflytek.mvvm_cli">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
-        android:name="com.example.mvvm.base.MyApplication"
+        android:name="com.iflytek.mvvm_cli.base.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTheme">
-        <activity android:name="com.example.mvvm.view.SplashActivity">
+        <activity android:name="com.iflytek.mvvm_cli.view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.mvvm.login_module.view.LoginActivity">
+        <activity android:name="com.iflytek.mvvm_cli.login_module.view.LoginActivity">
         </activity>
-        <activity android:name="com.example.mvvm.view.MainActivity">
+        <activity android:name="com.iflytek.mvvm_cli.view.MainActivity">
         </activity>
-        <activity android:name="com.example.mvvm.main_module.view.MainDetailActivity">
+        <activity android:name="com.iflytek.mvvm_cli.main_module.view.MainDetailActivity">
         </activity>
     </application>
 
