@@ -1,6 +1,6 @@
 package com.iflytek.mvvm_cli.main_module.model
 
-import com.iflytek.commonlib.net.BaseBean
+import com.iflytek.commonlib.net.BaseHttpBean
 import com.iflytek.commonlib.net.NetManager
 import com.iflytek.mvvm_cli.main_module.net.MainService
 import io.reactivex.Observable
@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 class MainModel {
     var token: String? = null
 
-    fun login(phone: String, passwprd: String): Observable<BaseBean<MainModel>>? {
+    fun login(phone: String, passwprd: String): Observable<BaseHttpBean<MainModel>>? {
         return NetManager.getService(MainService::class.java)?.login(phone, passwprd)
             ?.subscribeOn(Schedulers.newThread())//请求在新的线程中执行
             ?.observeOn(AndroidSchedulers.mainThread())

@@ -1,7 +1,7 @@
 package com.iflytek.mvvm_cli.main_module.view
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.iflytek.commonlib.Constant
+import com.iflytek.commonlib.ConstantRouterPath
 import com.iflytek.commonlib.base.BaseActivity
 import com.iflytek.mvvm_cli.main_module.R
 import com.iflytek.mvvm_cli.main_module.databinding.ActivityMainDetailBinding
@@ -9,7 +9,7 @@ import com.iflytek.mvvm_cli.main_module.databinding.ActivityMainDetailBinding
 /**
  * Created by Jianxin on 2021/1/28.
  */
-@Route(path = Constant.PATH_ACTIVITY_MAIN_MAINDETAIL, extras = 20001)
+@Route(path = ConstantRouterPath.PATH_ACTIVITY_MAIN_MAINDETAIL, extras = 20001)
 class MainDetailActivity : BaseActivity<ActivityMainDetailBinding>() {
     override fun bindVM() {
 

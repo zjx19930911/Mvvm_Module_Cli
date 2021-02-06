@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Interceptor
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback
 import com.alibaba.android.arouter.facade.template.IInterceptor
 import com.alibaba.android.arouter.launcher.ARouter
-import com.iflytek.commonlib.Constant
+import com.iflytek.commonlib.ConstantRouterPath
 import com.iflytek.mvvm_cli.login_module.LoginApplication
 
 
@@ -29,7 +29,7 @@ class LoginInterceptor : IInterceptor {
                 callback.onContinue(postcard)
             } else {
                 Log.e("LoginInterceptor", "未登录，拦截")
-                ARouter.getInstance().build(Constant.PATH_ACTIVITY_LOGIN_LOGIN)
+                ARouter.getInstance().build(ConstantRouterPath.PATH_ACTIVITY_LOGIN_LOGIN)
                     .withString("path", postcard.path).navigation()
             }
         } else {

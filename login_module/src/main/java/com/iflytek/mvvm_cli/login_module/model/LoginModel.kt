@@ -1,22 +1,21 @@
 package com.iflytek.mvvm_cli.login_module.model
 
-import com.iflytek.commonlib.net.BaseBean
+import com.iflytek.commonlib.extens.httpDataFilter
 import com.iflytek.commonlib.net.NetManager
+import com.iflytek.mvvm_cli.login_module.bean.LoginBean
 import com.iflytek.mvvm_cli.login_module.net.LoginService
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.*
+
 
 /**
  * Created by Jianxin on 2021/1/13.
  */
 
-class LoginModel {
-    var token: String? = null
+open class LoginModel(private val netManager: NetManager) {
 
-    fun login(phone: String, passwprd: String): Observable<BaseBean<LoginModel>>? {
-        return NetManager.getService(LoginService::class.java)?.login(phone, passwprd)
-            ?.subscribeOn(Schedulers.newThread())//请求在新的线程中执行
-            ?.observeOn(AndroidSchedulers.mainThread())
+
+    open fun login(phone: String, password: String): Single<LoginBean>? {
+        return netManager.getService(LoginService::class.java)?.login(phone, password)
+            ?.httpDataFilter()
     }
 }

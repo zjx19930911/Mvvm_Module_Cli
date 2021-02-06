@@ -4,7 +4,7 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.iflytek.commonlib.Constant
+import com.iflytek.commonlib.ConstantRouterPath
 import com.iflytek.commonlib.base.BaseActivity
 import com.iflytek.mvvm_cli.R
 import com.iflytek.mvvm_cli.databinding.ActivitySplashBinding
@@ -16,7 +16,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  * Created by Jianxin on 2021/1/13.
  */
 
-@Route(path = Constant.PATH_ACTIVITY_APP_SPLASH)
+@Route(path = ConstantRouterPath.PATH_ACTIVITY_APP_SPLASH)
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     private val mViewModel: SplashViewModel by viewModel()
@@ -37,7 +37,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                ARouter.getInstance().build(Constant.PATH_ACTIVITY_APP_MAIN).navigation()
+                ARouter.getInstance().build(ConstantRouterPath.PATH_ACTIVITY_APP_MAIN).navigation()
                 finish()
             }
 

@@ -6,28 +6,58 @@
     <data>
         <!--需要的viewModel,通过mBinding.vm=mViewMode注入-->
         <variable
-            name="presenter"
-            type="com.iflytek.commonlib.base.ClickPresent" />
+            name="click"
+            type="com.iflytek.commonlib.viewModel.ClickPresent" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.iflytek.mvvm_cli.view.MainActivity">
 
-        <com.qmuiteam.qmui.widget.QMUIViewPager
-            android:id="@+id/viewPager"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#e1e1e1"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.qmuiteam.qmui.widget.tab.QMUITabSegment
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:layout_gravity="bottom"
-            app:qmui_tab_icon_position="top" />
-    </LinearLayout>
+            <com.qmuiteam.qmui.widget.QMUIViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#e1e1e1" />
+
+            <com.qmuiteam.qmui.widget.tab.QMUITabSegment
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_gravity="bottom"
+                app:qmui_tab_icon_position="top" />
+        </LinearLayout>
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_insert"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:onClick="@{(view)->click.onClick(view)}"
+            android:layout_marginBottom="100dp"
+            android:padding="7dp"
+            android:text="插入数据" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_query"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="60dp"
+            android:onClick="@{(view)->click.onClick(view)}"
+            android:padding="7dp"
+            android:text="查询数据" />
+    </RelativeLayout>
 </layout>

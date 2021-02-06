@@ -2,6 +2,7 @@ package com.iflytek.commonlib.base
 
 import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
+import com.facebook.stetho.Stetho
 import com.iflytek.commonlib.BuildConfig
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
 
@@ -25,6 +26,7 @@ open class BaseApplication : Application() {
         }
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
         QMUISwipeBackActivityManager.init(this)
+        Stetho.initializeWithDefaults(this);
         modulesApplicationInit()
     }
 

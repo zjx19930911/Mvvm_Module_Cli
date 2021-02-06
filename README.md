@@ -19,7 +19,7 @@
 - 组件化
    - ARouter：module之间跳转的工具
 - 登录+主页
-- 单元测试vm层（登录页）
+- 单元测试vm层
 
 ### Installation：
 ```bash

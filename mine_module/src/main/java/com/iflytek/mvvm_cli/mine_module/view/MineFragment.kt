@@ -3,17 +3,18 @@ package com.iflytek.mvvm_cli.mine_module.view
 import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.iflytek.commonlib.Constant
+import com.iflytek.commonlib.ConstantRouterPath
 import com.iflytek.commonlib.base.BaseFragment
-import com.iflytek.commonlib.base.ClickPresent
+import com.iflytek.commonlib.viewModel.ClickPresent
 import com.iflytek.mvvm_cli.mine_module.R
 import com.iflytek.mvvm_cli.mine_module.databinding.FragmentMineBinding
 
 /**
  * Created by Jianxin on 2021/1/27.
  */
-@Route(path = Constant.PATH_FRAGMENT_MINE_MINE)
-class MineFragment : BaseFragment<FragmentMineBinding>(), ClickPresent {
+@Route(path = ConstantRouterPath.PATH_FRAGMENT_MINE_MINE)
+class MineFragment : BaseFragment<FragmentMineBinding>(),
+    ClickPresent {
     override fun bindVM() {
         mBinding.click = this
     }

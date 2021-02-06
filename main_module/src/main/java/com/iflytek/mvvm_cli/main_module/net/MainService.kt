@@ -1,6 +1,6 @@
 package com.iflytek.mvvm_cli.main_module.net
 
-import com.iflytek.commonlib.net.BaseBean
+import com.iflytek.commonlib.net.BaseHttpBean
 import com.iflytek.mvvm_cli.main_module.model.MainModel
 import io.reactivex.Observable
 import retrofit2.http.POST
@@ -14,5 +14,5 @@ import retrofit2.http.Query
 interface MainService{
     //登录
     @POST("/yxx-app/sso/login")
-    fun login(@Query("phone") phone: String,@Query("password") password: String): Observable<BaseBean<MainModel>>
+    fun login(@Query("phone") phone: String,@Query("password") password: String): Observable<BaseHttpBean<MainModel>>
 }

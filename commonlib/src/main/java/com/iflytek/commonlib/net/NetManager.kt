@@ -1,5 +1,9 @@
 package com.iflytek.commonlib.net
 
+import com.iflytek.commonlib.net.interceptor.ChainInterceptor
+import com.iflytek.commonlib.net.interceptor.LogInterceptor
+import com.iflytek.commonlib.net.interceptor.MockInterceptor
+import com.iflytek.commonlib.net.interceptor.MyGsonConverterFactory
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
@@ -16,6 +20,8 @@ import java.util.concurrent.TimeUnit
 object NetManager {
     private var retrofit: Retrofit?
     private const val url = "https://yxx.gaoshan.co";
+
+    const val SERVER_SUCCESS_CODE: Int = 200
 
     init {
         retrofit = Retrofit.Builder()
@@ -54,8 +60,7 @@ object NetManager {
             })
             .addInterceptor(ChainInterceptor())
             .addInterceptor(LogInterceptor())
-//            .addInterceptor(MockInterceptor("模拟滴数据"))
-            .addInterceptor(MockInterceptor())
+//            .addInterceptor(MockInterceptor("{\"message\":\"成功\",\"code\":200,\"data\":{\"name\":\"这是网络数据哦\"}}"))
             .connectTimeout(30000, TimeUnit.MILLISECONDS)
             .readTimeout(30000, TimeUnit.MILLISECONDS)
             .build()

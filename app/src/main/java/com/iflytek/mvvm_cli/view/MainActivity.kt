@@ -1,17 +1,17 @@
 package com.iflytek.mvvm_cli.view
 
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.iflytek.commonlib.Constant
+import com.iflytek.commonlib.ConstantRouterPath
 import com.iflytek.commonlib.base.BaseActivity
-import com.iflytek.commonlib.base.ClickPresent
+import com.iflytek.commonlib.viewModel.ClickPresent
+import com.iflytek.commonlib.database.User
+import com.iflytek.commonlib.extens.observerFilter
+import com.iflytek.commonlib.extens.showFailedDialog
 import com.iflytek.commonlib.extens.showSuccessDialog
-import com.iflytek.commonlib.extens.toast
 import com.iflytek.mvvm_cli.R
 import com.iflytek.mvvm_cli.databinding.ActivityMainBinding
 import com.iflytek.mvvm_cli.viewmodel.AppMainViewModel
@@ -20,8 +20,9 @@ import com.qmuiteam.qmui.widget.tab.QMUITab
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-@Route(path = Constant.PATH_ACTIVITY_APP_MAIN)
-class MainActivity : BaseActivity<ActivityMainBinding>(), ClickPresent {
+@Route(path = ConstantRouterPath.PATH_ACTIVITY_APP_MAIN)
+class MainActivity : BaseActivity<ActivityMainBinding>(),
+    ClickPresent {
     //di
 //    private val mViewModel: AnimalViewModel by viewModel() {
 //        parametersOf(
@@ -36,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ClickPresent {
     }
 
     override fun bindVM() {
-        mBinding.presenter = this
+        mBinding.click = this
     }
 
     override fun initView() {
@@ -63,9 +64,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ClickPresent {
             .setDynamicChangeIconColor(true)
             .build(this@MainActivity)
         mBinding.tabs.addTab(mine)
-        val mainFragment = ARouter.getInstance().build(Constant.PATH_FRAGMENT_MAIN_MAIN)
+        val mainFragment = ARouter.getInstance().build(ConstantRouterPath.PATH_FRAGMENT_MAIN_MAIN)
             .navigation() as Fragment
-        val mineFragment = ARouter.getInstance().build(Constant.PATH_FRAGMENT_MINE_MINE)
+        val mineFragment = ARouter.getInstance().build(ConstantRouterPath.PATH_FRAGMENT_MINE_MINE)
             .navigation() as Fragment
         fragmentList.add(mainFragment)
         fragmentList.add(mineFragment)
@@ -86,14 +87,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ClickPresent {
     }
 
     override fun initData() {
-        mViewModel.toast.observe(this,
-            Observer<String> { t ->
-                Toast.makeText(applicationContext, t, Toast.LENGTH_SHORT).show()
-            })
+        mViewModel.detailResult.observerFilter(this, {
+            dismissProgressDialog()
+            showSuccessDialog(it?.name)
+        }, { message, _ ->
+            dismissProgressDialog()
+            showFailedDialog(message)
+        })
     }
 
     override fun onClick(v: View?) {
-        toast("测试测试")
-        showSuccessDialog("测试测试")
+        if (v?.id == R.id.btn_insert) {
+            mViewModel.insert(User("插入的user"))
+        } else if (v?.id == R.id.btn_query) {
+            showProgressDialog()
+            mViewModel.detail()
+        }
     }
 }
+
+

@@ -1,7 +1,9 @@
-package com.iflytek.commonlib.net
+package com.iflytek.commonlib.net.interceptor
 
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
+import com.iflytek.commonlib.net.BaseHttpBean
+import com.iflytek.commonlib.net.NetManager.SERVER_SUCCESS_CODE
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -15,6 +17,8 @@ import java.lang.reflect.Type
 import java.nio.charset.Charset
 
 /**
+ * 服务端返回的异常code时，剔除data，返回错误信息
+ * 防止retrofit取不到错误message，直接报解析异常，
  * Created by Jianxin on 2020/6/23.
  */
 class MyGsonConverterFactory private constructor(gson: Gson?) : Converter.Factory() {
@@ -65,20 +69,15 @@ class MyGsonConverterFactory private constructor(gson: Gson?) : Converter.Factor
             val response = value.string()
             value.use {
                 return try {
-                    val baseBean = gson.fromJson(response, BaseBean::class.java);//拦截code
-                    if (baseBean.code != 200) {
+                    val baseBean = gson.fromJson(response, BaseHttpBean::class.java);//拦截code
+                    if (baseBean.code != SERVER_SUCCESS_CODE) {
                         gson.fromJson(gson.toJson(baseBean), type);
                     } else {
                         gson.fromJson(response, type);
                     }
                 } catch (e: Exception) {
-                    gson.fromJson("{\n" +
-                            "\t\"message\": \"解析错误\",\n" +
-                            "\t\"code\": 300\n" +
-                            "}", type);
+                    throw e
                 }
-
-
             }
         }
 
@@ -95,7 +94,9 @@ class MyGsonConverterFactory private constructor(gson: Gson?) : Converter.Factor
          */
         @JvmOverloads
         fun create(gson: Gson? = Gson()): MyGsonConverterFactory {
-            return MyGsonConverterFactory(gson)
+            return MyGsonConverterFactory(
+                gson
+            )
         }
     }
 

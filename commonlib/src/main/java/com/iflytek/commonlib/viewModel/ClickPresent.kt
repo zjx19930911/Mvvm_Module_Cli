@@ -1,4 +1,4 @@
-package com.iflytek.commonlib.base
+package com.iflytek.commonlib.viewModel
 
 import android.view.View
 

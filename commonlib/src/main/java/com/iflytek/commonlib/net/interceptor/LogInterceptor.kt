@@ -1,4 +1,4 @@
-package com.iflytek.commonlib.net
+package com.iflytek.commonlib.net.interceptor
 
 import com.socks.library.KLog
 import okhttp3.Interceptor
@@ -7,7 +7,8 @@ import java.io.IOException
 import java.nio.charset.Charset
 
 /**
- * Created by Administrator on 2016/share_hnb/21 0021.
+ * Created by Jianxin on on 2021/1/26.
+ * 打印请求log
  */
 class LogInterceptor : Interceptor {
     @Throws(IOException::class)
@@ -18,7 +19,8 @@ class LogInterceptor : Interceptor {
         source.request(Long.MAX_VALUE)
         val buffer = source.buffer()
         val contentType = responseBody.contentType()
-        var charset = UTF8
+        var charset =
+            UTF8
         if (contentType != null) {
             charset = contentType.charset(UTF8)
             val contentLength = responseBody.contentLength()

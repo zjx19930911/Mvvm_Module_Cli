@@ -2,30 +2,27 @@ package com.iflytek.mvvm_cli.login_module.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.iflytek.commonlib.net.MyObserver
+import com.iflytek.commonlib.extens.postResult
+import com.iflytek.commonlib.extens.subscribeFilter
+import com.iflytek.commonlib.liveData.MyMutableLiveData
+import com.iflytek.mvvm_cli.login_module.bean.LoginBean
 import com.iflytek.mvvm_cli.login_module.model.LoginModel
 
 /**
  * Created by Jianxin on 2021/1/13.
  */
 
-class LoginViewModel(application: Application, var model: LoginModel?) :
+open class LoginViewModel(application: Application, var model: LoginModel?) :
     AndroidViewModel(application) {
-    val loginSuccess = MutableLiveData<LoginModel>()
-    val loginFailed = MutableLiveData<String>()
+    val loginResult = MyMutableLiveData<LoginBean>()
 
     fun login(acc: String, pwd: String) {
-        model?.login(acc, pwd)?.subscribe(object : MyObserver<LoginModel>() {
-            override fun onSuccess(data: LoginModel?) {
-                loginSuccess.value = data;
-            }
-
-            override fun onFailed(message: String, code: Int) {
-                loginFailed.value = message
-            }
-
+        model?.login(acc, pwd)?.subscribeFilter({
+            println("成功啦")
+            loginResult.postResult(true, it)
+        }, { message, code ->
+            println("错误信息：$message")
+            loginResult.postResult(isSuccess = false, errorMessage = message, code = code)
         })
-
     }
 }
