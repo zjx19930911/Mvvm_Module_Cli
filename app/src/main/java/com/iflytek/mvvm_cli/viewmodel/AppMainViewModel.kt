@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.iflytek.commonlib.base.BaseViewModel
 import com.iflytek.commonlib.database.User
 import com.iflytek.commonlib.extens.postResult
 import com.iflytek.commonlib.extens.subscribeFilter
@@ -17,11 +18,11 @@ import com.iflytek.mvvm_cli.model.AppMainModel
  */
 
 open class AppMainViewModel(val appMainModel: AppMainModel, application: Application) :
-    AndroidViewModel(application) {
+    BaseViewModel(application) {
     val detailResult = MyMutableLiveData<User>()
 
     fun detail() {
-        appMainModel.getUserDetail()?.subscribeFilter({
+        appMainModel.getUserDetail()?.subscribeFilter(this,{
             println("成功啦:" + it?.name)
             detailResult.postResult(true, it)
         }, { message, code ->

@@ -86,4 +86,7 @@ dependencies {
     //ARouter
     api 'com.alibaba:arouter-api:1.2.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 }

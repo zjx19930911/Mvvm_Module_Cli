@@ -3,6 +3,7 @@ package com.iflytek.commonlib.extens
 import android.net.ParseException
 import android.util.Log
 import com.google.gson.JsonParseException
+import com.iflytek.commonlib.base.BaseViewModel
 import com.iflytek.commonlib.net.BaseHttpBean
 import com.iflytek.commonlib.net.NetManager.SERVER_SUCCESS_CODE
 import com.iflytek.commonlib.net.RxThrowable
@@ -33,6 +34,7 @@ fun <T> Single<T>.io2Main(): Single<T>? =
  */
 fun <T> Single<BaseHttpBean<T>>.httpDataFilter(): Single<T>? =
     this.io2Main()?.flatMap {
+        //解析data层，剔除 code /msg
         if (it.code != SERVER_SUCCESS_CODE) {
             Single.error(RxThrowable(it.message, it.code))
         } else {
@@ -45,6 +47,7 @@ fun <T> Single<BaseHttpBean<T>>.httpDataFilter(): Single<T>? =
  * 扩展函数统一处理异常信息
  */
 fun <T> Single<T>.subscribeFilter(
+    vm: BaseViewModel,
     successCallback: ((t: T?) -> Unit)? = null,
     errorCallback: ((message: String?, code: Int?) -> Unit)? = null
 ) =
@@ -54,7 +57,7 @@ fun <T> Single<T>.subscribeFilter(
         }
 
         override fun onSubscribe(d: Disposable) {
-
+            vm.addDisposable(d)
         }
 
         override fun onError(e: Throwable) {
@@ -77,7 +80,6 @@ fun <T> Single<T>.subscribeFilter(
     })
 
 
-
 /**
  * 扩展函数纯粹获取http请求结果
  * 统一处理请求错误
@@ -86,6 +88,7 @@ fun <T> Single<T>.subscribeFilter(
  * @param httpError 函数回调异常信息与错误码
  */
 fun <T> Single<BaseHttpBean<T>>.httpSubscribe(
+    vm: BaseViewModel,
     httpSuccess: ((t: T?) -> Unit)? = null,
     httpError: ((message: String?, code: Int?) -> Unit)? = null
 ) =
@@ -99,6 +102,7 @@ fun <T> Single<BaseHttpBean<T>>.httpSubscribe(
         }
 
         override fun onSubscribe(d: Disposable) {
+            vm.addDisposable(d)
         }
 
         override fun onError(e: Throwable) {
