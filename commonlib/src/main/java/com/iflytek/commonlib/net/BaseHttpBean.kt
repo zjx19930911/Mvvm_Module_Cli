@@ -12,6 +12,6 @@ package com.iflytek.commonlib.net
  */
 class BaseHttpBean<T> {
     var data: T? = null
-    var message: String? = null
-    var code = 0
+    var errorMsg: String? = null
+    var errorCode = 0
 }

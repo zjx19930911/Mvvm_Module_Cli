@@ -1,4 +1,4 @@
-### generator-mvvm-kotlin-module
+### generator-mvvm-module-kotlin-module
 
 > 基于Kotlin + Jetpack全家桶开发的mvvm组件化脚手架 :)
 

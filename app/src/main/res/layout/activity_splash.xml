@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.iflytek.mvvm_cli.viewmodel.SplashViewModel" />
+            type="com.iflytek.mvvm_module_cli.viewmodel.SplashViewModel" />
     </data>
 
     <FrameLayout

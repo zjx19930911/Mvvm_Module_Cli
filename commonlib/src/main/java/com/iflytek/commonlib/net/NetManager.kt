@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit
  */
 object NetManager {
     private var retrofit: Retrofit?
-    private const val url = "https://yxx.gaoshan.co";
+    private const val url = "https://wanandroid.com";
 
-    const val SERVER_SUCCESS_CODE: Int = 200
+    const val SERVER_SUCCESS_CODE: Int = 0
 
     init {
         retrofit = Retrofit.Builder()

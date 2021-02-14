@@ -21,7 +21,7 @@ android {
         versionName "1.0"
         if (isModule.toBoolean()) {
             // 独立调试时添加 applicationId ，集成调试时移除
-            applicationId "com.iflytek.mvvm_cli.main_module"
+            applicationId "com.iflytek.mvvm_module_cli.main_module"
         }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

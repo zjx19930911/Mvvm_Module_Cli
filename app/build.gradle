@@ -13,7 +13,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "30.0.2"
     defaultConfig {
-        applicationId "com.iflytek.mvvm_cli"
+        applicationId "com.iflytek.mvvm_module_cli"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

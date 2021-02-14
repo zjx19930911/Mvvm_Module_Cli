@@ -70,7 +70,7 @@ class MyGsonConverterFactory private constructor(gson: Gson?) : Converter.Factor
             value.use {
                 return try {
                     val baseBean = gson.fromJson(response, BaseHttpBean::class.java);//拦截code
-                    if (baseBean.code != SERVER_SUCCESS_CODE) {
+                    if (baseBean.errorCode != SERVER_SUCCESS_CODE) {
                         gson.fromJson(gson.toJson(baseBean), type);
                     } else {
                         gson.fromJson(response, type);

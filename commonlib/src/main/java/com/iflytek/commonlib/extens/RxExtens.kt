@@ -1,7 +1,6 @@
 package com.iflytek.commonlib.extens
 
 import android.net.ParseException
-import android.util.Log
 import com.google.gson.JsonParseException
 import com.iflytek.commonlib.base.BaseViewModel
 import com.iflytek.commonlib.net.BaseHttpBean
@@ -35,8 +34,8 @@ fun <T> Single<T>.io2Main(): Single<T>? =
 fun <T> Single<BaseHttpBean<T>>.httpDataFilter(): Single<T>? =
     this.io2Main()?.flatMap {
         //解析data层，剔除 code /msg
-        if (it.code != SERVER_SUCCESS_CODE) {
-            Single.error(RxThrowable(it.message, it.code))
+        if (it.errorCode != SERVER_SUCCESS_CODE) {
+            Single.error(RxThrowable(it.errorMsg, it.errorCode))
         } else {
             Single.just(it.data)
         }
@@ -94,10 +93,10 @@ fun <T> Single<BaseHttpBean<T>>.httpSubscribe(
 ) =
     this.io2Main()?.subscribe(object : SingleObserver<BaseHttpBean<T>> {
         override fun onSuccess(t: BaseHttpBean<T>) {
-            if (t.code == SERVER_SUCCESS_CODE) {
+            if (t.errorCode == SERVER_SUCCESS_CODE) {
                 httpSuccess?.invoke(t.data)
             } else {
-                httpError?.invoke(t.message, t.code)
+                httpError?.invoke(t.errorMsg, t.errorCode)
             }
         }
 
@@ -129,8 +128,8 @@ fun <T> dataFilterTransfer(): SingleTransformer<BaseHttpBean<T>, T> {
         upstream.subscribeOn(Schedulers.io())
             //解析data层，剔除 code /msg
             .flatMap { it ->
-                if (it.code != SERVER_SUCCESS_CODE) {
-                    Single.error(RxThrowable(it.message, it.code))
+                if (it.errorCode != SERVER_SUCCESS_CODE) {
+                    Single.error(RxThrowable(it.errorMsg, it.errorCode))
                 } else {
                     Single.just(it.data)
                 }
